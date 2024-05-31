@@ -1,0 +1,38 @@
+{%extends 'base.html'%}
+{%block content%}
+
+{%for message in get_flashed_messages()%}
+<div class="alert alert-primary fade show alert-dismissable" role="alert">
+    <strong>Hey {{surname}}</strong> - {{message}}
+  </div>
+{%endfor%}
+{% if current_user.is_authenticated %}
+{% if current_user.id == name_to_update.id %} <!--To prevent Access Control Vulnerabilities-->
+    <h1>Update</h1>
+    <br/> 
+    <form action="/update/{{name_to_update.id}}" method="post">
+        {{form.hidden_tag()}}
+        {{form.surname.label(class="form-label")}}
+        {{form.surname(class="form-control", value=name_to_update.surname)}}<br/>
+        {{form.lastname.label(class="form-label")}}
+        {{form.lastname(class="form-control", value=name_to_update.lastname)}}<br/>
+        {{form.middlename.label(class="form-label")}}
+        {{form.middlename(class="form-control", value=name_to_update.middlename)}}<br/>
+        {{form.email.label(class="form-label")}}
+        {{form.email(class="form-control", value=name_to_update.email)}}<br/>
+        {{form.gender.label(class="form-label")}}
+        {{form.gender(class="form-control", value=name_to_update.gender)}}<br/>
+        {{form.matric.label(class="form-label")}}
+        {{form.matric(class="form-control", value=name_to_update.matric)}}<br/>
+        {{form.submit(class="btn btn-secondary")}}
+    </form>
+    <br/><br/><br/>
+    <table class="table table-striped table-hover">
+    {%for our_user in our_users%}
+        <tr><th>{{our_user.id}} - {{our_user.surname}} - {{our_user.email}}</th></tr>
+    {%endfor%}
+</table>
+{%else%}
+{%endif%}
+{%endif%}
+{%endblock%} 
