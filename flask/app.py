@@ -108,12 +108,12 @@ def login():
         passed = check_password_hash(users.password_hash, password)
         if passed:
             login_user(users)
-            return render_template('login.html', form=form, matric_no=matric_no,password=password, passed=passed, users=users)
+            return render_template('login.html', form=form, matric_no=matric_no, users=users)
         else:
             flash('Invalid username or password')
             return render_template('login.html', form=form)
     else:
-        return render_template('login.html', form=form, matric_no=matric_no,password=password, passed=passed)
+        return render_template('login.html', form=form, matric_no=matric_no)
 
 # Logout route
 @app.route('/logout')

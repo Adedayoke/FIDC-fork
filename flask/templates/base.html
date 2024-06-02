@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{%block title%} {%endblock%}</title>
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous"> -->
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      .sidebar {
+        height: 100vh;
+        width: 20%;
+        background-color: #34495e;
+        color: white;
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-family: "Open Sans", sans-serif;
+        font-optical-sizing: auto;
+      }
+      .sidebar h1 {
+        text-align: center;
+        padding: 50px 0;
+        background-color: #2ccb6f;
+      }
+      ul {
+        list-style: none;
+      }
+      li {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+        font-weight: 600;
+        font-style: normal;
+        font-variation-settings: "wdth" 100;
+        cursor: pointer;
+      }
+      li a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        height: 100%;
+      }
+      li:hover {
+        background-color: rgba(38, 53, 66, 0.4);
+      }
+      .activepage {
+        background-color: #263542;
+      }
+      .ham {
+        position: absolute;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+        display: none;
+        z-index: 10;
+      }
+      .block {
+        display: block;
+      }
+      .login,
+      .signup,
+      .payment {
+        height: 100vh;
+        margin-left: 20%;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        font-family: "Open Sans", sans-serif;
+      }
+      .alert{
+        position: absolute;
+        left: 20%;
+        top: 0;
+        background-color: #2ccb6f;
+        width: 100%;
+        height: 50px;
+        padding: 10px;
+        color: white;
+      }
+      .dashboard {
+        height: 100vh;
+        margin-left: 20%;
+        width: 80%;
+        font-family: "Open Sans", sans-serif;
+      }
+      .login .inputSection {
+        display: flex;
+        border: 1px solid #34495e;
+        width: 60%;
+      }
+      .payment .inputSection {
+        display: flex;
+        border: 1px solid #34495e;
+        width: 100%;
+      }
+      .signup .inputSection {
+        display: flex;
+        border: 1px solid #34495e;
+        width: 100%;
+      }
+      .signup .inputSection.select {
+        display: flex;
+        border: none;
+        width: 100%;
+      }
+      .signup .inputSection.select .icon{
+        margin-right: 10px;
+      }
+      .login .inputSection input,
+      .payment .inputSection input {
+        padding: 10px;
+        width: 80%;
+        border: none;
+        outline: none;
+      }
+      .signup .inputSection .form-control {
+        padding: 10px;
+        width: 80%;
+        border: none;
+        outline: none;
+      }
+      .icon {
+        width: 20%;
+        background-color: #2ccb6f;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+      }
+      .loginCont,
+      .signupCont,
+      .paymentCont {
+        width: 50%;
+        text-align: center;
+      }
+      .login form,
+      .payment form {
+        padding: 10px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+      }
+      .signup form {
+        padding: 10px;
+        width: 100%;
+      }
+      .signup_flexCont{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .signup .left {
+        flex-basis: 48%;
+      }
+      .signup .right {
+        flex-basis: 48%;
+      }
+      .login h1,
+      .signup h1,
+      .payment h1 {
+        margin-bottom: 50px;
+        text-align: center;
+      }
+      .pry_btn {
+        width: 60%;
+        padding: 10px;
+        background-color: #2ccb6f;
+        color: white;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .signup .pry_btn {
+        margin-top: 10px;
+      }
+
+      .dashboardCont .header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 50px;
+      }
+      .dashboardCont .header .left {
+        background-color: red;
+        height: 250px;
+        width: 250px;
+        flex-basis: 25%;
+        border-radius: 50%;
+        overflow: hidden;
+      }
+      .dashboard ul {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .dashboard ul li {
+        padding: 10px;
+        width: calc(100% / 3);
+        font-weight: 700;
+      }
+      .dashboardCont {
+        height: 100%;
+        padding-top: 50px;
+        overflow: hidden;
+      }
+      .sectionCont {
+        height: 62%;
+        padding-top: 10px;
+      }
+      .section {
+        background-color: #2ccb6f;
+        height: 89%;
+      }
+      .activedash {
+        background-color: #2ccb6f;
+      }
+      .dashboard .header img {
+        margin-right: 10px;
+        height: 100%;
+        width: 100%;
+      }
+      .dashboard ul li:hover {
+        background-color: rgba(44, 203, 111, 0.7);
+      }
+      .payment .otherdet {
+        display: flex;
+        width: 60%;
+      }
+      .payment .otherdet div {
+        width: 50%;
+      }
+      .payment .otherdet .inputSection {
+        width: 95%;
+      }
+      /* .payment .otherdet .inputSection input{
+    width: 100%; 
+} */
+      .payment form label {
+        display: block;
+        text-align: left;
+        font-weight: 700;
+        font-size: 13px;
+      }
+      .payment form .inpt {
+        width: 60%;
+      }
+      .payment h1 {
+        display: flex;
+        align-items: center;
+      }
+      .payment h1 span {
+        color: #2ccb6f;
+        font-size: 40px;
+        margin-right: 10px;
+      }
+      @media (max-width: 895px) {
+        .loginCont,
+        .signupCont,
+        .paymentCont {
+          width: 80%;
+        }
+      }
+      @media (max-width: 720px) {
+        .login,
+        .signup,
+        .payment,
+        .dashboard {
+          width: 100%;
+          margin-left: 0;
+        }
+        .dashboardCont .header {
+          flex-direction: column;
+          justify-content: space-between;
+          height: 40%;
+          text-align: center;
+          margin-bottom: 0;
+        }
+        .dashboardCont .header .left {
+          flex-basis: 80%;
+          height: 50%;
+          height: 200px;
+          width: 200px;
+        }
+        .loginCont,
+        .signupCont,
+        .paymentCont {
+          width: 100%;
+        }
+        .login .inputSection {
+          width: 80%;
+        }
+        .payment .inputSection {
+          width: 100%;
+        }
+        .signup .inputSection {
+          width: 100%;
+        }
+        .pry_btn {
+          width: 80%;
+        }
+        .payment form .inpt {
+          width: 80%;
+        }
+        .payment .otherdet {
+          display: flex;
+          width: 80%;
+        }
+      }
+      @media (max-width: 720px) {
+        .none {
+          display: none;
+        }
+        .sidebar {
+          width: 100%;
+        }
+        .ham {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    {%include 'navbar.html'%}
+    <div class="container">
+      {%block content%} {%endblock%}
+      <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"
+      ></script>
+    </div>
+  </body>
+</html>
