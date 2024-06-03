@@ -15,6 +15,7 @@ import uuid as uuid
 #Secrete Token for CSRF so hackers doesen't hijack forms
  
 app = Flask(__name__)
+app.static_folder = 'static'
 app.config['SECRET_KEY'] = 'my super secret key' #Created an environment variable to store configurations
 #Database Configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'

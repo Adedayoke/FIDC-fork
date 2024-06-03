@@ -23,8 +23,11 @@
           </li>
           <li>
             <a href="{{url_for('initialize_paystack_transaction')}}">Payment</a>
-            {%endif%}
           </li>
+          <li>
+            <a href="{{url_for('logout')}}" class="btn btn-secondary">Logout</a>
+          </li>
+          {%endif%}
         </ul>
         <!-- <form class="d-flex" role="search">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">

@@ -6,10 +6,10 @@ get_flashed_messages()%}
 {%endfor%}
 <div class="login">
   {%if matric_no%}
-  <h1>{{users.surname}} {{users.middlename}}</h1>
+  <h1>Welcome {{users.surname}} {{users.middlename}}</h1>
   <h2>{{matric_no}}</h2>
-  <div>
-    <button>Go to dashboard</button>
+  <div class="gotodash">
+    <a href="{{url_for('dashboard')}}"><button>Go to dashboard</button></a>
   </div>
   {%else%}
   <br />
