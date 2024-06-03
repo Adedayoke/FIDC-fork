@@ -84,7 +84,7 @@ def update(id):
         name_to_update.gender = gender
         try:
             db.session.commit()
-            flash("User Updated Successfullys")
+            flash("User Updated Successfully")
             return render_template("update.html", form=form, name_to_update=name_to_update)
         except:
             flash("Error,Try again!!!!")

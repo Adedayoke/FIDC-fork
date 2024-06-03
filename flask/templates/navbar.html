@@ -1,4 +1,4 @@
-<nav class="sidebar">
+<nav class="sidebar none">
     <div className="logo">
       <h1>FIDC</h1>
     </div>
@@ -25,7 +25,10 @@
             <a href="{{url_for('initialize_paystack_transaction')}}">Payment</a>
           </li>
           <li>
-            <a href="{{url_for('logout')}}" class="btn btn-secondary">Logout</a>
+            <a href="{{url_for('logout')}}" class="btn">Logout</a>
+          </li>
+          <li>
+            <a href="{{url_for('delete', id=current_user.id)}}" class="btn-danger delbtn">Delete Account</a>
           </li>
           {%endif%}
         </ul>

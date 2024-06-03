@@ -6,9 +6,11 @@ document.addEventListener("DOMContentLoaded", function() {
     const updateSection = dashboard.querySelector('.updateSection');
     const tHistoryBtn = dashboard.querySelector('.tHistory');
     const thistorySection = dashboard.querySelector('.tHistorySection');
+    const alert = document.querySelectorAll('.alert');
+    const ham = document.querySelector('.ham');
+    const sidebar = document.querySelector('.sidebar');
     
     profileBtn.addEventListener('click', function() {
-      console.log("Profile button clicked");
       profileBtn.classList.add("activedash")
       updateBtn.classList.remove("activedash")
       tHistoryBtn.classList.remove("activedash")
@@ -18,7 +20,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   
     updateBtn.addEventListener('click', function() {
-      console.log("Update button clicked");
       updateBtn.classList.add("activedash")
       profileBtn.classList.remove("activedash")
       tHistoryBtn.classList.remove("activedash")
@@ -28,13 +29,26 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   
     tHistoryBtn.addEventListener('click', function() {
-      console.log("Transaction history button clicked");
       tHistoryBtn.classList.add("activedash")
       profileBtn.classList.remove("activedash")
       updateBtn.classList.remove("activedash")
-
       updateSection.classList.add("sectNone")
       profileSection.classList.add("sectNone")
       thistorySection.classList.remove("sectNone")
     }); 
+    alert.forEach((alt)=>{
+      setTimeout(()=>{
+        alt.classList.add("altNone")
+      }, 3000)
+    })
+    ham.addEventListener('click', function(){
+      sidebar.classList.toggle("none")
+      if(sidebar.classList.contains("none")){
+        ham.innerHTML = '<img src="{{ url_for(\'static\', filename=\'images/hamburger-menu.png\') }}" />';
+
+        }
+      else{
+        ham.innerHTML = "&times";
+      }
+    })
   });

@@ -1,53 +1,155 @@
-{%extends 'base.html'%} {%block content%}
-{% if current_user.is_authenticated %}
+{%extends 'base.html'%} {%block content%} {% if current_user.is_authenticated %}
 <div class="dashboard">
-{%for message in get_flashed_messages()%}
-<div class="alert" role="alert">
-  <strong>Hey {{surname}}</strong> - {{message}}
-</div>
-{%endfor%}
-<br />
-<div class="dashboardCont">
-  <div class="header">
-    <div class="left">
-      {%if current_user.profile %}
-      <img
-        src="{{url_for('static', filename='images/' + current_user.profile )}}"
-        style="float: right; width: 200px; height: 200px"
-      />
-      {%else%}
-      <img
-        src="{{url_for('static', filename='images/no profile.jpg')}}"
-        style="float: right; width: 200px; height: 200px"
-      />
-      {%endif%}
+  {%for message in get_flashed_messages()%}
+  <div class="alert" role="alert">
+    <strong>Hey {{current_user.surname}}</strong> - {{message}}
+  </div>
+  {%endfor%}
+  <br />
+  <div class="dashboardCont">
+    <div class="header">
+      <div class="left">
+        {%if current_user.profile %}
+        <img
+          src="{{url_for('static', filename='images/' + current_user.profile )}}"
+          style="float: right; width: 200px; height: 200px"
+        />
+        {%else%}
+        <img
+          src="{{url_for('static', filename='images/no profile.jpg')}}"
+          style="float: right; width: 200px; height: 200px"
+        />
+        {%endif%}
+      </div>
+      <div class="right">
+        <h1>
+          {{current_user.surname}} {{current_user.middlename}}
+          {{current_user.lastname}}
+        </h1>
+        <h2>{{current_user.matric}}</h2>
+      </div>
     </div>
-    <div class="right">
-      <h1>{{current_user.surname}} {{current_user.middlename}} {{current_user.lastname}}</h1>
-      <h2>{{current_user.matric}}</h2>
+    <div class="sectionCont">
+      <ul class="lg-cont">
+        <li class="activedash profile">PROFILE</li>
+        <li class="update">UPDATE</li>
+        <li class="tHistory">TRANSACTION HISTORY</li>
+      </ul>
+      <ul class="sm-cont">
+        <li class="activedash profile">PROFILE</li>
+        <li class="update">UPDATE</li>
+        <li class="tHistory">TRANSACTION HISTORY</li>
+      </ul>
+      <div class="section">
+        <div class="profileSection">
+          <div class="profileSection-grid">
+            <div>
+              <strong>Name of Student:</strong> {{current_user.surname}}
+              {{current_user.middlename}} {{current_user.lastname}}
+            </div>
+            <div>
+              <strong>Matric No:</strong> {{current_user.matric}}
+            </div>
+            <div>
+              <strong>Gender:</strong> {{current_user.gender}}
+            </div>
+            <div>
+              <strong>Email:</strong> {{current_user.email}}
+            </div>
+          </div>
+        </div>
+        <div class="updateSection sectNone">
+          <form action="/dashboard" method="post" enctype="multipart/form-data">
+            {{form.hidden_tag()}}
+            <!--This -->
+            <div class="signup_flexCont">
+              <div class="left">
+                {{form.surname.label(class="form-label")}}
+                  <div class="inputSection">
+                    <div class="icon"></div>
+                    {{form.surname(class="form-control", value=current_user.surname)}}
+                  </div>
+                  <br />
+                  {{form.middlename.label(class="form-label")}}
+                  
+                  <div class="inputSection">
+                      <div class="icon"></div>
+                      {{form.middlename(class="form-control", value=current_user.middlename)}}
+                    </div>
+                  
+                  <br />
+                  {{form.lastname.label(class="form-label")}}
+                  <div class="inputSection">
+                      <div class="icon"></div>
+                      {{form.lastname(class="form-control", value=current_user.lastname)}}
+                    </div>
+                  <br />
+                  {{form.email.label(class="form-label")}}
+                  <div class="inputSection">
+                    <div class="icon"></div>
+                    {{form.email(class="form-control", value=current_user.email)}}
+                  </div>
+                </div>
+                <div class="right">
+                  {{form.matric.label(class="form-label")}}
+                  <div class="inputSection">
+                    <div class="icon"></div>
+                    {{form.matric(class="form-control", value=current_user.matric)}}
+                  </div>
+                  <br />
+                  {{form.profile_pic.label(class="form-label")}}
+                  <div class="inputSection">
+                    <div class="icon"></div>
+                    {{form.profile_pic(class="form-control")}}
+                  </div>
+                  <br />
+                  {{form.gender.label(class="form-label")}}
+                  <div class="inputSection select">
+                    <div class="icon"></div>
+                    {{form.gender(class="form-control", value=current_user.gender)}}
+                  </div>
+                </div>
+            </div>
+            <br>
+            {{form.submit(class="secondary_btn")}}
+          </form>
+          <a href="{{url_for('delete', id=current_user.id)}}" class="btn-danger none">Delete Account</a>
+        </div>
+        <div class="tHistorySection sectNone">
+          <p>{{status}}</p>
+          <table cellspacing="0">
+            <thead>
+              <th>ID</th>
+              <th>Email</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>URL</th>
+              <th>Matric Number</th>
+              <th>Verification</th>
+            </thead>
+            <tbody>
+              {% for payment in payments %}
+              <tr>
+                <td>{{ payment.id }}</td>
+                <td>{{ payment.email }}</td>
+                <td>₦{{ payment.amount / 100 }}</td>
+                <td>{{ payment.status }}</td>
+                <td>{{ payment.url }}</td>
+                <td>{{ payment.matric_no }}</td>
+                <td>
+                  <a
+                    href='{{url_for("verify", reference=payment.reference)}}'
+                    class="btn btn-success"
+                    >Verify</a
+                  >
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="sectionCont">
-    <ul>
-      <li class="activedash profile">PROFILE</li>
-      <li class="update">UPDATE</li>
-      <li class="tHistory">TRANSACTION HISTORY</li>
-    </ul>
-    <div class="section">
-      <div class="profileSection">
-        Profile
-      </div>
-      <div class="updateSection sectNone">
-        Update
-      </div>
-      <div class="tHistorySection sectNone">
-        Transfers
-      </div>
-    </div>
-  </div>
-  
-
 </div>
-</div>
-{% endif %} 
-{%endblock%}
+{% endif %} {%endblock%}

@@ -20,6 +20,7 @@
         top: 0;
         font-family: "Open Sans", sans-serif;
         font-optical-sizing: auto;
+        z-index: 20;
       }
       .sidebar h1 {
         text-align: center;
@@ -52,11 +53,17 @@
       }
       .ham {
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 10px;
+        top: 10px;
         cursor: pointer;
         display: none;
-        z-index: 10;
+        z-index: 30;
+        font-weight: 700;
+        font-size: 50px;
+      }
+      .ham img{
+        width: 30px;
+        height: 30px
       }
       .block {
         display: block;
@@ -73,7 +80,7 @@
         flex-direction: column;
         font-family: "Open Sans", sans-serif;
       }
-      .gotodash button{
+      .gotodash button {
         padding: 10px;
         background-color: #2ccb6f;
         border: none;
@@ -82,15 +89,17 @@
         font-weight: 500;
         cursor: pointer;
       }
-      .alert{
+      .alert {
+        transition: all 0.5s;
         position: absolute;
         left: 20%;
         top: 0;
         background-color: #2ccb6f;
-        width: 100%;
+        width: 80%;
         height: 50px;
         padding: 10px;
         color: white;
+        z-index: 10;
       }
       .dashboard {
         height: 100vh;
@@ -98,8 +107,49 @@
         width: 80%;
         font-family: "Open Sans", sans-serif;
       }
-      .sectNone{
+      .sectNone {
         display: none;
+      }
+      .profileSection,
+      .updateSection,
+      .tHistorySection {
+        padding: 10px;
+      }
+      .profileSection {
+        color: white;
+        height: 80%;
+      }
+      .updateSection {
+        width: 60%;
+        margin: 0px auto;
+      }
+      .updateSection label {
+        font-weight: 600;
+        color: #263542;
+      }
+      .profileSection strong {
+        color: #263542;
+      }
+      .secondary_btn {
+        display: block;
+        background-color: #263542;
+        color: white;
+        width: 60%;
+        padding: 10px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        align-self: center;
+        margin: 0 auto;
+      }
+      .profileSection-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        align-items: center;
+        height: 50%;
+        width: 80%;
+        gap: 20px;
+        font-size: 20px;
       }
       .login .inputSection {
         display: flex;
@@ -116,12 +166,22 @@
         border: 1px solid #34495e;
         width: 100%;
       }
+      .updateSection .inputSection {
+        display: flex;
+        border: 1px solid #34495e;
+        width: 100%;
+      }
       .signup .inputSection.select {
         display: flex;
         border: none;
         width: 100%;
       }
-      .signup .inputSection.select .icon{
+      .updateSection .inputSection.select {
+        display: flex;
+        border: none;
+        width: 100%;
+      }
+      .signup .inputSection.select .icon {
         margin-right: 10px;
       }
       .login .inputSection input,
@@ -132,6 +192,12 @@
         outline: none;
       }
       .signup .inputSection .form-control {
+        padding: 10px;
+        width: 80%;
+        border: none;
+        outline: none;
+      }
+      .updateSection .inputSection .form-control {
         padding: 10px;
         width: 80%;
         border: none;
@@ -164,7 +230,7 @@
         padding: 10px;
         width: 100%;
       }
-      .signup_flexCont{
+      .signup_flexCont {
         display: flex;
         align-items: center;
         justify-content: space-between;
@@ -174,6 +240,15 @@
       }
       .signup .right {
         flex-basis: 48%;
+      }
+      .updateSection .left {
+        flex-basis: 48%;
+      }
+      .updateSection .right {
+        flex-basis: 48%;
+      }
+      .updateSection .icon {
+        background-color: #263542;
       }
       .login h1,
       .signup h1,
@@ -190,6 +265,15 @@
         font-weight: 600;
         cursor: pointer;
       }
+      .pay_btn {
+        padding: 10px;
+        background-color: #2ccb6f;
+        color: white;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+      }
       .signup .pry_btn {
         margin-top: 10px;
       }
@@ -200,20 +284,24 @@
         gap: 10px;
         padding: 0 50px;
       }
+      .altNone {
+        opacity: 0;
+      }
       .dashboardCont .header .left {
-        background-color: red;
         height: 250px;
         width: 250px;
         flex-basis: 25%;
-        border-radius: 50%;
-        overflow: hidden;
+        /* overflow: hidden; */
       }
-      .dashboard ul {
+      .dashboardCont .header .left img {
+        border-radius: 50%;
+      }
+      .lg-cont {
         display: flex;
         align-items: center;
         justify-content: space-between;
       }
-      .dashboard ul li {
+      .lg-cont li {
         padding: 10px;
         width: calc(100% / 3);
         font-weight: 700;
@@ -221,15 +309,29 @@
       .dashboardCont {
         height: 100%;
         padding-top: 50px;
-        overflow: hidden;
+        /* overflow: hidden; */
       }
       .sectionCont {
-        height: 62%;
+        height: 100%;
         padding-top: 10px;
       }
       .section {
+        overflow-y: auto;
         background-color: #2ccb6f;
-        height: 89%;
+        height: 100%;
+        padding-top: 20px;
+        position: relative;
+      }
+      .btn-danger {
+        position: absolute;
+        left: 20px;
+        bottom: 20px;
+        background-color: red;
+        text-decoration: none;
+        color: white;
+        display: block;
+        padding: 10px;
+        border-radius: 20px;
       }
       .activedash {
         background-color: #2ccb6f;
@@ -273,6 +375,28 @@
         font-size: 40px;
         margin-right: 10px;
       }
+      .delbtn {
+        display: none;
+      }
+      .sm-cont{
+        display: none;
+      }
+      .tHistorySection{
+        overflow: auto;
+      }
+      .tHistorySection table {
+      border-collapse: collapse;
+    }
+      .tHistorySection tr:nth-child(even) {
+      background-color: #263542;
+      color: white;
+    }
+    .tHistorySection td{
+      padding: 10px;
+    }
+    .tHistorySection th{
+      padding: 10px;
+    }
       @media (max-width: 895px) {
         .loginCont,
         .signupCont,
@@ -280,7 +404,40 @@
           width: 80%;
         }
       }
+      @media (max-width: 840px) {
+        .updateSection {
+          width: 100%;
+        }
+      }
       @media (max-width: 720px) {
+        .btn-danger {
+          display: inline;
+          position: relative;
+          margin-top: 10px;
+        }
+        .delbtn {
+          display: block;
+        }
+        .btn-danger {
+          left: 0;
+        }
+        .signup_flexCont {
+          flex-direction: column;
+        }
+
+        .signup_flexCont .left {
+          width: 100%;
+          flex-basis: 100%;
+          margin-bottom: 10px;
+        }
+        .signup_flexCont .right {
+          width: 100%;
+          flex-basis: 100%;
+        }
+        .alert {
+          width: 100%;
+          left: 0;
+        }
         .login,
         .signup,
         .payment,
@@ -325,8 +482,6 @@
           display: flex;
           width: 80%;
         }
-      }
-      @media (max-width: 720px) {
         .none {
           display: none;
         }
@@ -336,16 +491,28 @@
         .ham {
           display: block;
         }
+        .sectionCont {
+          height: 80%;
+          margin-top: 80px;
+        }
+        .lg-cont{
+          display: block;
+        }
+        .lg-cont li{
+          width: 100%;
+        }
       }
     </style>
-    
   </head>
   <body>
+    <div class="ham">
+      <img src="{{url_for('static', filename='images/hamburger-menu.png' )}}"/>
+    </div>
+
     {%include 'navbar.html'%}
     <div class="container">
-      {%block content%} 
-      {%endblock%}
-      
+      {%block content%} {%endblock%}
+
       <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
