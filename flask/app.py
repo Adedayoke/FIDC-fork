@@ -45,7 +45,7 @@ def user_loader(user_id):
 
 
 
-@app.route('/delete/<int:id>')
+@app.route('/delete/<int:id>', methods=['POST'])
 def delete(id):
     surname = None
     form = SignupForm()
@@ -55,10 +55,14 @@ def delete(id):
         db.session.commit()
         flash("User Deleted Successfully!!")
         our_users = Users.query.order_by(Users.date_added)
-        return render_template("signup.html", form=form, our_users=our_users,surname=surname)
+        redirect_url = '/signup'
+        return redirect(redirect_url)
+        # return render_template("signup.html", form=form, our_users=our_users,surname=surname)
     except:
         flash("Whoops Error Occured")
-        return render_template("signup.html", form=form, our_users=our_users, surname=surname)
+        redirect_url = '/signup'
+        return redirect(redirect_url)
+        #return render_template("signup.html", form=form, our_users=our_users, surname=surname)
 
 
 #Update Database Record
@@ -109,7 +113,9 @@ def login():
         passed = check_password_hash(users.password_hash, password)
         if passed:
             login_user(users)
-            return render_template('login.html', form=form, matric_no=matric_no, users=users)
+            redirect_url = '/dashboard'
+            return redirect(redirect_url)
+            #return render_template('login.html', form=form, matric_no=matric_no, users=users)
         else:
             flash('Invalid username or password')
             return render_template('login.html', form=form)
@@ -186,7 +192,9 @@ def home():
 def Signup():
     #When the page loads the name is equal to None
     surname = None #Setting a name variable to None 
-    form = SignupForm() 
+    form = SignupForm()
+    # id = current_user.id
+    # name_to_update = Users.query.get_or_404(id)
     if form.validate_on_submit():
         users = Users.query.filter_by(email=form.email.data).first()
         if users is None:
@@ -195,10 +203,15 @@ def Signup():
                           matric=form.matric.data, password_hash=hashed_pw)
             db.session.add(users)
             db.session.commit()
+            name_to_update = Users.query.get_or_404(users.id)
+            redirect_url = '/dashboard'
+            return redirect(redirect_url)
+            #return render_template('dashboard.html', form=form, name_to_update=name_to_update)
         surname = form.surname.data
         form.surname.data =  ''
         form.email.data = ''
-        flash("User added Successfully")#Flashing messages to the screen
+        flash("User added Successfully")
+        #Flashing messages to the screen
     our_users = Users.query.order_by(Users.date_added)
     return render_template('signup.html', surname=surname, form=form, our_users=our_users)
 
@@ -234,8 +247,8 @@ def initialize_paystack_transaction():
             try:
                 db.session.add(users)
                 db.session.commit()
-                flash("User Updated Successfully")
-                return render_template("payment.html", form=form, response=response, status=url)
+                #flash("User Updated Successfully")
+                return redirect(url)
             except:
                 flash("Error,Try again!!!!")
                 return render_template("payment.html", form=form)    

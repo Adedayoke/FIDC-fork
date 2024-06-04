@@ -47,15 +47,9 @@
               <strong>Name of Student:</strong> {{current_user.surname}}
               {{current_user.middlename}} {{current_user.lastname}}
             </div>
-            <div>
-              <strong>Matric No:</strong> {{current_user.matric}}
-            </div>
-            <div>
-              <strong>Gender:</strong> {{current_user.gender}}
-            </div>
-            <div>
-              <strong>Email:</strong> {{current_user.email}}
-            </div>
+            <div><strong>Matric No:</strong> {{current_user.matric}}</div>
+            <div><strong>Gender:</strong> {{current_user.gender}}</div>
+            <div><strong>Email:</strong> {{current_user.email}}</div>
           </div>
         </div>
         <div class="updateSection sectNone">
@@ -65,55 +59,62 @@
             <div class="signup_flexCont">
               <div class="left">
                 {{form.surname.label(class="form-label")}}
-                  <div class="inputSection">
-                    <div class="icon"></div>
-                    {{form.surname(class="form-control", value=current_user.surname)}}
-                  </div>
-                  <br />
-                  {{form.middlename.label(class="form-label")}}
-                  
-                  <div class="inputSection">
-                      <div class="icon"></div>
-                      {{form.middlename(class="form-control", value=current_user.middlename)}}
-                    </div>
-                  
-                  <br />
-                  {{form.lastname.label(class="form-label")}}
-                  <div class="inputSection">
-                      <div class="icon"></div>
-                      {{form.lastname(class="form-control", value=current_user.lastname)}}
-                    </div>
-                  <br />
-                  {{form.email.label(class="form-label")}}
-                  <div class="inputSection">
-                    <div class="icon"></div>
-                    {{form.email(class="form-control", value=current_user.email)}}
-                  </div>
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.surname(class="form-control",
+                  value=current_user.surname)}}
                 </div>
-                <div class="right">
-                  {{form.matric.label(class="form-label")}}
-                  <div class="inputSection">
-                    <div class="icon"></div>
-                    {{form.matric(class="form-control", value=current_user.matric)}}
-                  </div>
-                  <br />
-                  {{form.profile_pic.label(class="form-label")}}
-                  <div class="inputSection">
-                    <div class="icon"></div>
-                    {{form.profile_pic(class="form-control")}}
-                  </div>
-                  <br />
-                  {{form.gender.label(class="form-label")}}
-                  <div class="inputSection select">
-                    <div class="icon"></div>
-                    {{form.gender(class="form-control", value=current_user.gender)}}
-                  </div>
+                <br />
+                {{form.middlename.label(class="form-label")}}
+
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.middlename(class="form-control",
+                  value=current_user.middlename)}}
                 </div>
+
+                <br />
+                {{form.lastname.label(class="form-label")}}
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.lastname(class="form-control",
+                  value=current_user.lastname)}}
+                </div>
+                <br />
+                {{form.email.label(class="form-label")}}
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.email(class="form-control", value=current_user.email)}}
+                </div>
+              </div>
+              <div class="right">
+                {{form.matric.label(class="form-label")}}
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.matric(class="form-control",
+                  value=current_user.matric)}}
+                </div>
+                <br />
+                {{form.profile_pic.label(class="form-label")}}
+                <div class="inputSection">
+                  <div class="icon"></div>
+                  {{form.profile_pic(class="form-control")}}
+                </div>
+                <br />
+                {{form.gender.label(class="form-label")}}
+                <div class="inputSection select">
+                  <div class="icon"></div>
+                  {{form.gender(class="form-control",
+                  value=current_user.gender)}}
+                </div>
+              </div>
             </div>
-            <br>
+            <br />
             {{form.submit(class="secondary_btn")}}
           </form>
-          <a href="{{url_for('delete', id=current_user.id)}}" class="btn-danger none">Delete Account</a>
+          <form action="/delete/{{current_user.id}}" method="POST">
+            <button class="btn-danger none" type="submit">Delete Account</button>
+          </form>
         </div>
         <div class="tHistorySection sectNone">
           <p>{{status}}</p>
